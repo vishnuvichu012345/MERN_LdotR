@@ -8,11 +8,26 @@ const User = require('./models/User');
 
 mongoose.connect('mongodb+srv://vuvishnu23:vuvishnu23@cluster0.rhz5j.mongodb.net/', { useNewUrlParser: true, useUnifiedTopology: true });
 
+
+
 // const user = new User({ name: 'Alice', email: 'alice@example.com', age: 28 });
 // user.save().then(() => console.log('User added'));
 // app.get('/', (req, res) => {
 //   res.send('Hello, World!');
 // });
+
+app.get('/', (req, res) => {
+  res.send('Hello, World!');
+});
+
+
+app.get('/users', (req, res) => {
+  const users = [
+    { name: 'John', email: 'john@example.com', age: 30 },
+    { name: 'Jane', email: 'jane@example.com', age: 25 },
+  ];
+  res.json(users);
+});
 
 
 
@@ -28,12 +43,6 @@ app.get('/users/:email', (req, res) => {
     .catch(err => {
       res.status(500).json({ error: 'Error fetching user', details: err });
     });
-});
-
-app.get('/users/:email', async (req, res) => {
-  const user = await User.findOne({ email: req.params.email });
-  res.json(user);
-  console.log(json(user))
 });
 
 
