@@ -1,13 +1,23 @@
-// import logo from './logo.svg';
-import './App.css';
+// App.js
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Navbar from './Components/Navbar';
+import Home from './Components/Home';
+import AddBlog from './Components/AddBlog';
 import UsersTable from './Components/UsersTable';
 
-function App() {
+
+const App = () => {
   return (
-    <>
-    <UsersTable/>
-    </>
+    <Router>
+      <Navbar/>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/add-blog" element={<AddBlog />} />
+        <Route path="/add-user" element={<UsersTable/>} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
