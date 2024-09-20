@@ -75,7 +75,7 @@ function App() {
     setName(user.name);
     setEmail(user.email);
     setAge(user.age);
-    setEditId(user.id); // Assuming `id` is unique
+    setEditId(user.mongoId); // Assuming `id` is unique
   };
 
   // DataGrid columns with action buttons
@@ -98,7 +98,7 @@ function App() {
           </IconButton>
           <IconButton
             color="secondary"
-            onClick={() => handleDelete(params.row.id)}
+            onClick={() => handleDelete(params.row.mongoId)}
           >
             <DeleteIcon />
           </IconButton>
@@ -109,7 +109,8 @@ function App() {
 
   // Prepare rows for DataGrid
   const rows = users.map((user, index) => ({
-    id: index + 1, // Generate unique ID for the row
+    id: index + 1,  // Generated row index ID for display
+    mongoId: user._id,  // MongoDB _id for backend operations
     ...user,
   }));
 
