@@ -6,6 +6,12 @@ const Blog = require('./models/Blog');
 const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
+const cors = require('cors');
+
+
+app.use(cors({
+  origin: 'http://localhost:3001', // Allow requests from your frontend
+}));
 
 // MongoDB Connection
 mongoose.connect('mongodb+srv://vuvishnu23:vuvishnu23@cluster0.rhz5j.mongodb.net/', {
@@ -21,7 +27,6 @@ app.use(express.urlencoded({ limit: '100mb', extended: true }));
 
 // Serve static files for uploaded images
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
 
 // Error handler for large payloads
 app.use((err, req, res, next) => {
