@@ -162,7 +162,7 @@ const AddBlog = () => {
               <CardMedia
                 component="img"
                 height="140"
-                image={blog.image || '/placeholder-image.png'}  // Use a placeholder if no image
+                image={`http://localhost:3000${blog.image}`|| '/placeholder-image.png'}  // Use a placeholder if no image
                 alt={blog.title}
               />
               <CardContent>

@@ -13,9 +13,15 @@ function App() {
 
   // Fetch users from the backend
   useEffect(() => {
-    fetch('/users')
-      .then((response) => response.json())
-      .then((data) => setUsers(data));
+    fetch('http://localhost:3000/users')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => setUsers(data))
+      .catch((error) => console.error('Error fetching users:', error));
   }, []);
 
   // Handle form submission (add or update)
@@ -25,7 +31,7 @@ function App() {
 
     if (editId) {
       // Update existing user
-      fetch(`/users/${editId}`, {
+      fetch(`http://localhost:3000/users/${editId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(user),
@@ -36,7 +42,7 @@ function App() {
       });
     } else {
       // Add new user
-      fetch('/users', {
+      fetch('http://localhost:3000/users', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(user),
@@ -56,14 +62,14 @@ function App() {
 
   // Refresh users list
   const refreshUsers = () => {
-    fetch('/users')
+    fetch('http://localhost:3000/users')
       .then((response) => response.json())
       .then((data) => setUsers(data));
   };
 
   // Handle delete user
   const handleDelete = (id) => {
-    fetch(`/users/${id}`, {
+    fetch(`http://localhost:3000/users/${id}`, {
       method: 'DELETE',
     }).then(() => {
       refreshUsers();
